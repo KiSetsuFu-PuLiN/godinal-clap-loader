@@ -1,0 +1,21 @@
+[package]
+name = "godinal-clap-loader"
+version = "0.0.1"
+edition = "2024"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+godot = {version = "0.3.4", features=["register-docs"]}
+itertools = "0.12"
+clack-host = { git = "https://github.com/prokopyl/clack.git", branch = "main" }
+clack-extensions = { git = "https://github.com/prokopyl/clack.git", branch = "main", features = [
+    "clack-host",
+    "gui",
+    "log",
+    "audio-ports",
+    "timer",
+    "params",
+    "state",
+] }

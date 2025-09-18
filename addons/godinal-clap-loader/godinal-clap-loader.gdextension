@@ -1,0 +1,18 @@
+[configuration]
+entry_symbol = "gdext_rust_init"
+compatibility_minimum = 4.1
+reloadable = true
+
+[libraries]
+linux.debug.x86_64 =     "res://addons/godinal-clap-loader/rust/target/debug/libgodinal_clap_loader.so"
+linux.release.x86_64 =   "res://addons/godinal-clap-loader/rust/target/release/libgodinal_clap_loader.so"
+linux.debug.arm64 =      "res://addons/godinal-clap-loader/rust/target/debug/libgodinal_clap_loader.so"
+linux.release.arm64 =    "res://addons/godinal-clap-loader/rust/target/release/libgodinal_clap_loader.so"
+android.debug.arm64 =    "res://addons/godinal-clap-loader/rust/target/debug/libgodinal_clap_loader.so"
+android.release.arm64 =  "res://addons/godinal-clap-loader/rust/target/release/libgodinal_clap_loader.so"
+windows.debug.x86_64 =   "res://addons/godinal-clap-loader/rust/target/debug/godinal_clap_loader.dll"
+windows.release.x86_64 = "res://addons/godinal-clap-loader/rust/target/release/godinal_clap_loader.dll"
+macos.debug =            "res://addons/godinal-clap-loader/rust/target/debug/libgodinal_clap_loader.dylib"
+macos.release =          "res://addons/godinal-clap-loader/rust/target/release/libgodinal_clap_loader.dylib"
+macos.debug.arm64 =      "res://addons/godinal-clap-loader/rust/target/debug/libgodinal_clap_loader.dylib"
+macos.release.arm64 =    "res://addons/godinal-clap-loader/rust/target/release/libgodinal_clap_loader.dylib"

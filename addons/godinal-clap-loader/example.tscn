@@ -1,0 +1,59 @@
+[gd_scene load_steps=3 format=3 uid="uid://hhoytorinc8v"]
+
+[ext_resource type="AudioStream" uid="uid://0wsj3ltb8qsf" path="res://addons/godinal-clap-loader/V.A. - 一级警报BGM.mp3" id="1_55en3"]
+
+[sub_resource type="GDScript" id="GDScript_tlfnp"]
+script/source = "extends FileDialog
+
+@export var music:AudioStreamMP3
+var clap_instance:ClapPluginInstance
+
+func _ready() -> void:
+	show()
+
+func _on_files_selected(paths):
+	for clap_instance in ClapPluginInstance.new_from_clap_files(paths, 44100, 0.1):
+		add_child(clap_instance)
+		self.clap_instance = clap_instance
+		for clap_output_audio_port_access in clap_instance.output_audio_port_accesses():
+			var audio_stream_player := AudioStreamPlayer.new()
+			add_child(audio_stream_player)
+			audio_stream_player.stream = clap_output_audio_port_access
+			audio_stream_player.play()
+		for input_audio_port_access in clap_instance.input_audio_port_accesses():
+			input_audio_port_access.stream = music
+		
+		var save_path = \"C:/Users/Echo/Desktop/buffer.bin\"
+		var file = FileAccess.open(save_path, FileAccess.READ_WRITE if FileAccess.file_exists(save_path) else FileAccess.WRITE_READ)
+		clap_instance.state = file.get_buffer(file.get_length())
+		await get_tree().create_timer(12).timeout
+		file.resize(0)
+		file.store_buffer(clap_instance.state)
+		file.close()
+		print(\"Saved: \", save_path)
+
+func _process(delta):
+	if self.clap_instance == null:
+		return
+	var f = Engine.get_process_frames()
+	var value = sin(f/10.0)
+	var input := InputEventMIDI.new()
+	input.channel = 0
+	input.controller_number = 0
+	input.controller_value = (value + 1) * 63
+	input.message = MIDI_MESSAGE_CONTROL_CHANGE
+	self.clap_instance.push_midi([input])
+"
+
+[node name="ClapFileLoader" type="FileDialog"]
+title = "Open File(s)"
+ok_button_text = "Open"
+file_mode = 1
+access = 2
+filters = PackedStringArray("*.clap")
+show_hidden_files = true
+use_native_dialog = true
+script = SubResource("GDScript_tlfnp")
+music = ExtResource("1_55en3")
+
+[connection signal="files_selected" from="." to="." method="_on_files_selected"]
