@@ -40,8 +40,8 @@
 
 1.  **代码清理：** 工程中的 `todo` 字段需要完善和整理。
 2.  **跨平台支持：** 需要针对 Windows, macOS, Linux 和 Android（大概可以吧？） 等操作系统及各种硬件架构编译二进制库。
-   -  编译后的文件将位于项目内的 [target](addons/godinal-clap-loader/rust/target) 文件夹。
-   -  这些版本需要更全面的测试和性能优化。
+      -  编译后的文件将位于项目内的 [target](addons/godinal-clap-loader/rust/target) 文件夹。
+      -  这些版本需要更全面的测试和性能优化。
 
 ## 🔨 编译指南
 
@@ -50,8 +50,8 @@
 1.  [安装 rust](https://www.rust-lang.org/learn/get-started)
 2.  进入 [rust](addons/godinal-clap-loader/rust) 源代码目录
 3.  运行以下命令来进行编译：
-    * **调试版本：** `cargo build`
-    * **发布版本：** `cargo build -r`
+      - **调试版本：** `cargo build`
+      - **发布版本：** `cargo build -r`
 
 > 要是编译成功了可以帮忙传下二进制库，谢谢🙏！
 
