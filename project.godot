@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Godinal Clap Loader"
+config/name="Godinal CLAP Loader"
 run/main_scene="uid://hhoytorinc8v"
 config/features=PackedStringArray("4.5", "Forward Plus")
 
