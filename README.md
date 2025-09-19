@@ -33,12 +33,12 @@
 - 还没怎么在项目里应用过，可能会漏掉一些实际用时会强烈需要的功能（
 - 万一有发现，欢迎提 **Issue** 和 **Pull Request**
 
-### 待办事项 (TODOs)
+### 待办事项
 
 以下是当前需要完善的几个主要方面：
 
-1.  **代码清理：** 工程中的 `TODO` 字段和临时注释需要完善和整理。
-2.  **更全面的跨平台支持：** 当前 Rust 编译版本（位于 `addons/godinal-clap-loader/rust/target` 文件夹）需要针对 Windows, macOS, 和 Linux 等主流平台进行更全面的测试和优化。
+1.  **代码清理：** 工程中的 `todo` 字段需要完善和整理。
+2.  **跨平台支持：** 需要针对 Windows, macOS, Linux 和 Android（大概可以吧？） 等操作系统及各种硬件架构进行编译（位于 [target](addons/godinal-clap-loader/rust/target) 文件夹），并进行更全面的测试和优化。
 
 ## 许可证
 
