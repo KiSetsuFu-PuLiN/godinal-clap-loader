@@ -1,14 +1,14 @@
-# 第三方许可证声明 (Third-Party Licenses)
+# Third-Party Licenses Statement
 
-本项目包含以下第三方依赖项，它们遵循各自的许可证协议：
+This project incorporates the following third-party dependencies, which are governed by their respective license agreements:
 
 ## 1. gdext
-* **许可证:** Mozilla Public License 2.0 (MPL-2.0)
-* **出处:** https://github.com/godot-rust/gdext
+* **License:** Mozilla Public License 2.0 (MPL-2.0)
+* **Source:** https://github.com/godot-rust/gdext
 
-本项目使用的 **gdext** 库遵循 MPL-2.0 许可证。根据该许可证的条款，任何对该库文件的修改或派生，必须继续以 MPL-2.0 许可证发布。
+The **gdext** library used by this project is governed by the MPL-2.0 license. According to the terms of this license, any modifications to or derivative works of the files belonging to this library must continue to be licensed under the MPL-2.0.
 
-### MPL-2.0 许可证全文
+### Full Text of the MPL-2.0 License
 
 Mozilla Public License Version 2.0
 ==================================
