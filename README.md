@@ -2,22 +2,24 @@
 
 ## 简介
 
-**Godinal CLAP Loader** 是一个为 **Godot 引擎** 设计的扩展，旨在为游戏和音频应用引入 **CLAP (CLever Audio Plugin)** 插件格式的强大音频处理能力。
+**Godinal CLAP Loader** 是一个为 **Godot 引擎** 设计的音频扩展，旨在为游戏和音频应用引入 **[CLAP](https://github.com/free-audio/clap)** 插件格式的强大音频处理能力。
 
 本项目将现代音频插件的灵活性和高性能带入 Godot 生态系统，允许开发者在游戏内使用专业级的 CLAP 效果器和合成器。
 
-## ✨ 主要特性 (Features)
+至于为什么叫Godinal Clap Loader，因为
 
-* **加载 CLAP 插件：** 轻松将 CLAP 插件文件集成到 Godot 项目中。
-* **音频流路由：** 能够将 Godot 的 `AudioStream` 数据路由到 CLAP 插件的输入端口。
-* **实时 MIDI 控制：** 支持在游戏运行时发送 MIDI 消息（如 Note On/Off、Control Change），以控制插件参数。
-* **状态管理：** 能够加载和保存 CLAP 插件的内部状态，确保项目重启后效果一致。
-* **跨平台支持：** 利用 Rust 的跨平台特性，为不同操作系统提供编译支持。
+## ✨ 主要特性
+
+- **音频流IO：** 提供一系列完整且低延迟的路由音频与 MIDI 数据流到 CLAP 插件的方法。
+- **GUI显示：** 使用 Godot 原生窗口进行 CLAP 插件的 GUI 显示（如果插件有 GUI ）的话。
+- **状态管理：** 支持 CLAP 插件实例状态的持久化存取，确保项目在重新加载或导出后，插件的音色和设置保持一致。
+- **深度集成：** 使用 Godot 原生`AudioStream`和`InputEventMIDI`类型接口，提供近乎无感、操作简易的开发体验。
 
 ## 🚀 快速上手
 
-1.  **运行示例：** 直接运行项目中的 [example.tscn](addons/godinal-clap-loader/example.tscn) 场景。Godot 会启动一个文件选择窗，用于选取一个本地的 CLAP 插件文件进行加载。
-2.  **查阅文档：** 该场景会自动向加载的插件发送测试音频和控制信号。查看该场景的 GDScript 来了解如何使用插件常用的类，它们都附带有详细的文档注释！
+1.  **克隆项目：** 将本项目根目录下的 [addons](addons) 文件夹克隆到您的项目中。您也可以通过 [Godot 资产库](https://example.com) 来进行这个操作。
+2.  **运行示例：** 直接运行项目中的 [example.tscn](addons/godinal-clap-loader/example.tscn) 场景。Godot 会启动一个文件选择窗，用于选取一个本地的 CLAP 插件文件进行加载。
+3.  **查阅文档：** 该场景会自动向加载的插件发送测试音频和控制信号。查看该场景的 GDScript 来了解如何使用插件常用的类，它们都附带有详细的文档注释！
 
 💡 如果文字不够直观，还可以观看我录制的[使用教程](https://example.com)！
 
@@ -30,8 +32,8 @@
 
 ### 欢迎贡献
 
-- 代码水平比较菜，有架构不合理或没测到的 Bug 大概是难免的（
-- 还没怎么在项目里应用过，可能会漏掉一些实际用时会强烈需要的功能（
+- 因为代码水平比较菜，有架构不合理或没测到的 Bug 大概是难免的（
+- 而且还没怎么在项目里应用过，可能会漏掉一些实际用时会强烈需要的功能（
 - 万一有发现，欢迎提 **Issue** 和 **Pull Request**
 
 ### 待办事项
@@ -40,7 +42,7 @@
 
 1.  **代码清理：** 工程中的 `todo` 字段需要完善和整理。
 2.  **跨平台支持：** 需要针对 Windows, macOS, Linux 和 Android（大概可以吧？） 等操作系统及各种硬件架构编译二进制库。
-      -  编译后的文件将位于项目内的 [target](addons/godinal-clap-loader/rust/target) 文件夹。
+      -  编译后的文件将位于项目内的 [target](addons/godinal-clap-loader/rust/target) 文件夹，并通过[godinal-clap-loader.gdextension](addons/godinal-clap-loader/godinal-clap-loader.gdextension)被 Godot 项目引用并加载。
       -  这些版本需要更全面的测试和性能优化。
 
 ## 🔨 编译指南
@@ -55,7 +57,7 @@
 
 > 要是编译成功了可以帮忙传下二进制库，谢谢🙏！
 
-## 👏 致谢
+## 👏 谢鸣
 
 本项目得以实现，离不开以下优秀项目和社区的支持与贡献：
 
