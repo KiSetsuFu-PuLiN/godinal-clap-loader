@@ -67,7 +67,7 @@ The realization of this project would not have been possible without the support
 > Why this project is named *Godinal Clap Loader*:
 > > This is thanks to the powerful modular synthesizer **[Cardinal](https://github.com/DISTRHO/Cardinal)**, which served as the primary experimental subject for feature testing in the early stages of the project, and then the name **Godinal** was coined (a joke).
 > >
-> > Perhaps one day, this project could truly become a part of a professional-grade DAW based on Godot, probably named Godinal (
+> > Perhaps one day, this project could truly become a part of a professional-grade DAW based on Godot, probably named *Godinal* (
 
 ## 📜 License
 
