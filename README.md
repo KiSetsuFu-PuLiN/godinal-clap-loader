@@ -35,23 +35,15 @@
 
 ---
 
-## 🚀 快速上手 (Getting Started)
+## 🚀 快速上手
 
-### 依赖与要求
+1.  **运行示例：** 直接运行项目中的 [example.tscn](addons/godinal-clap-loader/example.tscn) 场景。Godot 会启动一个文件对话框，让你选择一个本地的 CLAP 插件文件进行加载。
+2.  **查阅文档：** 该场景会自动向加载的插件发送测试音频和控制信号。通过查看该场景的 GDScript 来了解如何使用插件常用的类，它们都附带有详细的文档注释。
 
-* **Godot Version:** Godot 4.x (推荐最新稳定版)
-* **系统环境:** 适用于 Godot 4.x 支持的任意操作系统。
-* **插件文件:** 至少一个 CLAP 插件文件（通常为 `.clap` 扩展名）用于测试。
-
-### 如何使用
-
-1.  将 `godinal-clap-loader` 目录添加到您的 Godot 项目的 `addons/` 文件夹中。
-2.  在 Godot 编辑器中，进入 **项目 > 项目设置 > 插件**，确保 **Godinal Clap Loader** 插件已启用。
-3.  通过 GDScript 使用 `ClapPluginInstance.new_from_clap_files()` 方法加载你的 CLAP 插件。
-4.  参考示例代码，设置音频输入输出，并开始发送 MIDI 消息控制插件。
+💡 如果文字不够直观，还可以观看我录制的[使用教程](https://example.com)！
 
 ---
 
-## 许可证 (License)
+## 许可证
 
 本项目采用 **MIT 许可证** 开源。详情请见 [LICENSE](LICENSE) 文件。
