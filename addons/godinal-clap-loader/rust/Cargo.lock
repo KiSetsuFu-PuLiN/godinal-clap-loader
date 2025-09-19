@@ -79,7 +79,7 @@ checksum = "f2d1aab06663bdce00d6ca5e5ed586ec8d18033a771906c993a1e3755b368d85"
 
 [[package]]
 name = "godinal-clap-loader"
-version = "0.0.1"
+version = "0.1.0"
 dependencies = [
  "clack-extensions",
  "clack-host",

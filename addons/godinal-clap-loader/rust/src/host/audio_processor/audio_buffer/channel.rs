@@ -9,6 +9,8 @@ use std::{
     sync::mpsc::{Receiver, Sender, channel},
 };
 
+// todo: 缓冲区使用一整块的内存或许性能会更好。
+
 pub struct InputChannel<F> {
     /// 接受Godot输入的通道。
     channel_buffer_rx: Receiver<Box<[F]>>,
