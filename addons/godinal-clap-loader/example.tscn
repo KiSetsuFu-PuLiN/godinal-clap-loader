@@ -60,14 +60,14 @@ func _save_state(clap_instance: ClapPluginInstance, state_file:FileAccess):
 func _setup_state(clap_instance: ClapPluginInstance, state_save_path:String, save_delay:float):
 		# 检查状态文件是否存在
 		var is_state_file_exists := FileAccess.file_exists(state_save_path)
-		# 打开文件：如果文件存在则以读写模式打开并加载状态，否则以写入/读模式创建新文件
+		# 打开文件：如果文件存在则以读写模式打开并加载状态，否则以写读模式创建新文件
 		var file:FileAccess
 		if is_state_file_exists:
 			file = FileAccess.open(state_save_path, FileAccess.READ_WRITE)
+			# 立即加载文件中的状态数据
 			_load_state(clap_instance, file)
 		else:
 			file = FileAccess.open(state_save_path, FileAccess.WRITE_READ)
-		# 立即加载文件中的状态数据
 		
 		# 创建一个定时器，等待指定的延迟时间
 		await get_tree().create_timer(save_delay).timeout
