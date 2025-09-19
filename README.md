@@ -64,10 +64,10 @@
 - **[<img src="https://avatars.githubusercontent.com/u/6318500?s=24&v=4"> Godot Engine](https://github.com/godotengine/godot)**
 - **[<img src="https://avatars.githubusercontent.com/u/6681623?s=24&v=4"> Cardinal](https://github.com/DISTRHO/Cardinal)**
 
-> 为什么本项目叫 Godinal Clap Loader ：
+> 为什么本项目叫 *Godinal Clap Loader* ：
 > > 这要感谢强大的模块化合成器 **[Cardinal](https://github.com/DISTRHO/Cardinal)** 在项目的初期作为了功能测试的主要实验对象，然后就拼出了 **Godinal** 这么个名字（雾
 > >
-> > 说不定以后哪天，这个项目真的可以成为一个名字大概叫 Godinal 的基于 Godot 的专业级 DAW 的一部分（
+> > 说不定以后哪天，这个项目真的可以成为一个名字大概叫 *Godinal* 的基于 Godot 的专业级 DAW 的一部分（
 
 ## 📜 许可证
 
