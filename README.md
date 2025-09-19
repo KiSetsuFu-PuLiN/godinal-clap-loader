@@ -55,6 +55,19 @@
 
 > 要是编译成功了可以帮忙传下二进制库，谢谢🙏！
 
-## 许可证
+## 👏 致谢
 
-本项目采用 **MIT 许可证** 开源。详情请见 [LICENSE](LICENSE) 文件。
+本项目得以实现，离不开以下优秀项目和社区的支持与贡献：
+
+* **[<img src="https://github.com/prokopyl/clack/blob/main/logo.svg" width="24" height="24"> clack](https://github.com/prokopyl/clack)**
+* **[<img src="https://avatars.githubusercontent.com/u/66136469?s=24&v=4"> gdext](https://github.com/godot-rust/gdext)**
+* **[<img src="https://avatars.githubusercontent.com/u/6318500?s=24&v=4"> Godot Engine](https://github.com/godotengine/godot)**
+
+## 📜 许可证
+
+本项目采用**混合许可证**。
+
+1.  **项目主体代码：** 本仓库中由开发者编写的**主体代码**（不包括第三方依赖部分）采用 **MIT 许可证**发布。详情请参阅项目根目录下的 [LICENSE](LICENSE) 文件。
+2.  **第三方依赖：** 本项目通过 [Cargo.toml](addons/godinal-clap-loader/rust/Cargo.toml) 引用了遵循 **MPL-2.0** 和其他许可证的库。在使用和分发本项目时，请务必遵守这些依赖库的相应许可证要求。
+
+有关所有第三方依赖的完整许可证列表，请参阅 [LICENSES-THIRD-PARTY.md](LICENSES-THIRD-PARTY.md) 文件。
