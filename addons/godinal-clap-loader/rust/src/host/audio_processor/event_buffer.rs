@@ -19,12 +19,12 @@ impl<Handle> EventBuffer<Handle> {
 
 pub type InputHandle = Receiver<Box<[Box<UnknownEvent>]>>;
 impl EventBuffer<InputHandle> {
-    pub fn process(&mut self) {
+    pub fn pop_buffer(&mut self) -> InputEvents<'_> {
+        self.event_buffer.clear();
         for event in self.handle.try_iter().flatten() {
             self.event_buffer.push(&event);
         }
-    }
-    pub fn pop_buffer(&self) -> InputEvents<'_> {
+
         self.event_buffer.as_input()
     }
 }

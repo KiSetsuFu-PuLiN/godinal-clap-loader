@@ -13,7 +13,9 @@ use std::{cell::OnceCell, ops::Deref};
 
 /// 对Clap插件输出端口的访问句柄。
 ///
-/// 可以当成AudioStream使用。
+/// 可以被当作[`IAudioStream`]使用，需要注意[`IAudioStream`]仅支持两个声道输出：
+/// - 当本Clap输出端口包含少于两个通道时，左右声道的音频数据均来自Clap插件的第一个输出通道。
+/// - 当本Clap输出端口包含多余两个通道时，第三个及之后的通道的数据并不会通过[`IAudioStream`]的方式传递出来。如有访问这些通道的需要，请使用[`ClapOutputAudioPortAccess::channel_accesses`]。
 #[derive(GodotClass)]
 #[class(no_init,base = AudioStream)]
 pub struct ClapOutputAudioPortAccess {

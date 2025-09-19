@@ -10,7 +10,7 @@ use std::{cell::OnceCell, sync::mpsc::Receiver};
 
 /// 对Clap插件输出通道的访问句柄。
 ///
-/// 可以当成AudioStream使用。
+/// 可以被当作[`IAudioStream`]使用，通道输出的单声道音频会被复制并传入到两个输出声道中。
 #[derive(GodotClass)]
 #[class(no_init, base=AudioStream)]
 pub struct ClapOutputAudioChannelAccess {

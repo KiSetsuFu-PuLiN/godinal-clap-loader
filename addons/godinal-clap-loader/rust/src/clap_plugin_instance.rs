@@ -32,7 +32,7 @@ struct ClapPluginInstance {
     #[var(get=get_clap_transport_event_access, set = set_clap_transport_event_access)]
     clap_transport_event_access: Option<Gd<ClapTransportEventAccess>>,
 
-    /// 插件当前的状态，可以取出宿主的这个状态并持久化，方便后续打开这个重新加载这个宿主时快速从持久化数据恢复插件设置。
+    /// 插件当前的状态，可以取出宿主的这个状态并持久化，用于以后让插件重新加载这个状态来快速恢复当前设置。
     #[allow(unused)]
     #[var(get = get_state, set = set_state)]
     state: PackedByteArray,
@@ -231,7 +231,7 @@ impl ClapPluginInstance {
 
     /// 向插件发送midi事件。
     #[func]
-    fn push_midi(&self, midi: Array<Gd<InputEventMidi>>) {
+    fn send_midi(&self, midi: Array<Gd<InputEventMidi>>) {
         let events = midi.iter_shared().map(|midi| midi_to_event(midi)).collect();
         self.host.audio_access().send_input_event_buffers(events);
     }

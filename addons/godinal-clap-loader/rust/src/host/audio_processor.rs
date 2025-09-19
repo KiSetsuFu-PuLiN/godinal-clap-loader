@@ -143,7 +143,6 @@ impl AudioProcessor<Host, f32> {
 
     fn process_batches_before(&mut self) {
         self.input_audio_buffer.process();
-        self.input_event_buffer.process();
     }
 
     fn process_batch(&mut self, buffer_frames_count: usize, transport: Option<&TransportEvent>) {

@@ -1,10 +1,9 @@
-use std::iter::repeat_n;
-
 use crate::clap_input_audio_channel_access::ClapInputAudioChannelAccess;
 use godot::{
     classes::{AudioStream, AudioStreamPlayback},
     prelude::*,
 };
+use std::iter::repeat_n;
 
 /// 对Clap插件输出端口的访问句柄。
 #[derive(GodotClass)]
@@ -16,7 +15,7 @@ pub struct ClapInputAudioPortAccess {
 
     /// 端口接收音频流。当这个属性被设置后，会以所属Clap插件的采样率速度持续不断地从流中读取数据并发往音频线程对应的端口缓冲。
     ///
-    /// 注意：传入数据只包含两个声道，故而如果本端口包含两个以上的通道，多出来的通道则不会收到音频数据。
+    /// 注意：[`AudioStream`]传入数据只包含两个声道，故而如果本Clap输入端口包含两个以上的通道，从第三个开始及之后的通道都不会收到音频数据。如有向这些通道传递数据的需要，请使用[`ClapInputAudioPortAccess::channel_accesses`]。
     #[var(get=get_stream, set=set_stream)]
     stream: Option<Gd<AudioStream>>,
     stream_playback: Option<Gd<AudioStreamPlayback>>,

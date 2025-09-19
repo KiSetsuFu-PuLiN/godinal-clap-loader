@@ -13,7 +13,7 @@ pub struct ClapInputAudioChannelAccess {
 
     /// 通道接收音频流。当这个属性被设置后，会以所属Clap插件的采样率速度持续不断地从流中读取数据并发往音频线程对应的通道缓冲。
     ///
-    /// 注意：通道仅包含一个声道，故而传入的双声道数据会在根据其属性转为单声道数据：
+    /// 注意：本通道访问句柄仅能接受[`AudioStream`]的单声道数据，故而传入的双声道数据会在根据其属性转为单声道数据：
     /// - 若[`AudioStream::is_monophonic()`]为`true`：则只取左声道数据
     /// - 若[`AudioStream::is_monophonic()`]为`false`：则取双声道数据的均值。
     #[var(get=get_stream, set=set_stream)]

@@ -1,49 +1,93 @@
-[gd_scene load_steps=3 format=3 uid="uid://hhoytorinc8v"]
+[gd_scene load_steps=4 format=3 uid="uid://hhoytorinc8v"]
 
 [ext_resource type="AudioStream" uid="uid://0wsj3ltb8qsf" path="res://addons/godinal-clap-loader/V.A. - 一级警报BGM.mp3" id="1_55en3"]
 
 [sub_resource type="GDScript" id="GDScript_tlfnp"]
 script/source = "extends FileDialog
 
-@export var music:AudioStreamMP3
-var clap_instance:ClapPluginInstance
+@export var _music:AudioStream
+var _clap_instances:Array[ClapPluginInstance] = []
+
+func _setup_audio_stream_input(clap_instance: ClapPluginInstance):
+	for input_audio_port_access in clap_instance.input_audio_port_accesses():
+		input_audio_port_access.stream = _music
+
+func _setup_audio_stream_output(clap_instance: ClapPluginInstance):
+	for clap_output_audio_port_access in clap_instance.output_audio_port_accesses():
+		var audio_stream_player := AudioStreamPlayer.new()
+		add_child(audio_stream_player)
+		audio_stream_player.stream = clap_output_audio_port_access
+		audio_stream_player.play()
+
+func _setup_audio_stream(clap_instance: ClapPluginInstance):
+	_setup_audio_stream_input(clap_instance)
+	_setup_audio_stream_output(clap_instance)
+
+func _load_state(clap_instance: ClapPluginInstance, state_file:FileAccess):
+	clap_instance.state = state_file.get_buffer(state_file.get_length())
+
+func _save_state(clap_instance: ClapPluginInstance, state_file:FileAccess):
+	state_file.resize(0)
+	state_file.store_buffer(clap_instance.state)
+	state_file.close()
+	print(\"Plugin State Saved: \", state_file.get_path_absolute())
+
+func _setup_state(clap_instance: ClapPluginInstance, state_save_path:String, save_delay:float):
+		var is_state_file_exists := FileAccess.file_exists(state_save_path)
+		var file := FileAccess.open(state_save_path, FileAccess.READ_WRITE if is_state_file_exists else FileAccess.WRITE_READ)
+		_load_state(clap_instance, file)
+		await get_tree().create_timer(save_delay).timeout
+		_save_state(clap_instance, file)
+
+var _is_midi_note_high := false
+func _process_midi_note(clap_instance: ClapPluginInstance):
+	var physics_frames := Engine.get_physics_frames()
+	var is_high := physics_frames / ProjectSettings.get_setting(\"physics/common/physics_ticks_per_second\") % 2 as bool
+	if _is_midi_note_high == is_high:
+		return
+	_is_midi_note_high = is_high
+	var high_note_midi := InputEventMIDI.new()
+	high_note_midi.message = MIDI_MESSAGE_NOTE_ON if is_high else MIDI_MESSAGE_NOTE_OFF
+	high_note_midi.pitch = 72
+	high_note_midi.velocity = 127
+	var low_note_midi := InputEventMIDI.new()
+	low_note_midi.message = MIDI_MESSAGE_NOTE_OFF if is_high else MIDI_MESSAGE_NOTE_ON
+	low_note_midi.pitch = 60
+	low_note_midi.velocity = 127
+	clap_instance.send_midi([high_note_midi, low_note_midi])
+
+func _process_midi_param(clap_instance: ClapPluginInstance):
+	var process_frames := Engine.get_process_frames()
+	var value := sin(process_frames/10.0)
+	var pamam_midi := InputEventMIDI.new()
+	pamam_midi.message = MIDI_MESSAGE_CONTROL_CHANGE
+	pamam_midi.controller_number = 0
+	pamam_midi.controller_value = (value + 1) * 128/2
+	clap_instance.send_midi([pamam_midi])
+
+func _process_midi(clap_instance: ClapPluginInstance):
+	_process_midi_note(clap_instance)
+	_process_midi_param(clap_instance)
 
 func _ready() -> void:
 	show()
 
 func _on_files_selected(paths):
-	for clap_instance in ClapPluginInstance.new_from_clap_files(paths, 44100, 0.1):
+	for clap_instance in ClapPluginInstance.new_from_clap_files(paths, AudioServer.get_mix_rate(), 0.1):
 		add_child(clap_instance)
-		self.clap_instance = clap_instance
-		for clap_output_audio_port_access in clap_instance.output_audio_port_accesses():
-			var audio_stream_player := AudioStreamPlayer.new()
-			add_child(audio_stream_player)
-			audio_stream_player.stream = clap_output_audio_port_access
-			audio_stream_player.play()
-		for input_audio_port_access in clap_instance.input_audio_port_accesses():
-			input_audio_port_access.stream = music
-		
-		var save_path = \"C:/Users/Echo/Desktop/buffer.bin\"
-		var file = FileAccess.open(save_path, FileAccess.READ_WRITE if FileAccess.file_exists(save_path) else FileAccess.WRITE_READ)
-		clap_instance.state = file.get_buffer(file.get_length())
-		await get_tree().create_timer(12).timeout
-		file.resize(0)
-		file.store_buffer(clap_instance.state)
-		file.close()
-		print(\"Saved: \", save_path)
+		_clap_instances.append(clap_instance)
+		_setup_audio_stream(clap_instance)
+		_setup_state(clap_instance, \"user://state.bin\", 12)
 
 func _process(delta):
-	if self.clap_instance == null:
-		return
-	var f = Engine.get_process_frames()
-	var value = sin(f/10.0)
-	var input := InputEventMIDI.new()
-	input.channel = 0
-	input.controller_number = 0
-	input.controller_value = (value + 1) * 63
-	input.message = MIDI_MESSAGE_CONTROL_CHANGE
-	self.clap_instance.push_midi([input])
+	for clap_instance in _clap_instances:
+		_process_midi(clap_instance)
 "
+
+[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_55en3"]
+fade_time = 0.0
+stream_count = 1
+stream_0 = ExtResource("1_55en3")
 
 [node name="ClapFileLoader" type="FileDialog"]
 title = "Open File(s)"
@@ -54,6 +98,6 @@ filters = PackedStringArray("*.clap")
 show_hidden_files = true
 use_native_dialog = true
 script = SubResource("GDScript_tlfnp")
-music = ExtResource("1_55en3")
+_music = SubResource("AudioStreamPlaylist_55en3")
 
 [connection signal="files_selected" from="." to="." method="_on_files_selected"]
