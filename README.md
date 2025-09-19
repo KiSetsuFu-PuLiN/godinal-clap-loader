@@ -2,11 +2,7 @@
 
 ## 简介
 
-**Godinal CLAP Loader** 是一个为 **Godot 引擎** 设计的音频扩展，旨在为游戏和音频应用引入 **[CLAP](https://github.com/free-audio/clap)** 插件格式的强大音频处理能力。
-
-本项目将现代音频插件的灵活性和高性能带入 Godot 生态系统，允许开发者在游戏内使用专业级的 CLAP 效果器和合成器。
-
-至于为什么叫Godinal Clap Loader，因为
+**Godinal CLAP Loader** 是为 **Godot 引擎**量身打造的音频扩展，旨在为游戏和音频应用的开发引入 **[CLAP](https://github.com/free-audio/clap)** 插件格式的强大音频处理能力，将现代音频插件的**高性能和灵活性**带入 Godot 生态系统，让开发者能够在游戏内直接使用各种强大的 **CLAP 效果器和合成器**。
 
 ## ✨ 主要特性
 
@@ -61,9 +57,15 @@
 
 本项目得以实现，离不开以下优秀项目和社区的支持与贡献：
 
-* **[<img src="https://github.com/prokopyl/clack/blob/main/logo.svg" width="24" height="24"> clack](https://github.com/prokopyl/clack)**
-* **[<img src="https://avatars.githubusercontent.com/u/66136469?s=24&v=4"> gdext](https://github.com/godot-rust/gdext)**
-* **[<img src="https://avatars.githubusercontent.com/u/6318500?s=24&v=4"> Godot Engine](https://github.com/godotengine/godot)**
+- **[<img src="https://github.com/prokopyl/clack/blob/main/logo.svg" width="24" height="24"> clack](https://github.com/prokopyl/clack)**
+- **[<img src="https://avatars.githubusercontent.com/u/66136469?s=24&v=4"> gdext](https://github.com/godot-rust/gdext)**
+- **[<img src="https://avatars.githubusercontent.com/u/6318500?s=24&v=4"> Godot Engine](https://github.com/godotengine/godot)**
+- **[<img src="https://avatars.githubusercontent.com/u/6681623?s=24&v=4"> Cardinal](https://github.com/DISTRHO/Cardinal)**
+
+> 为什么叫 Godinal Clap Loader ：
+> > 这要感谢强大的模块化合成器 **[Cardinal](https://github.com/DISTRHO/Cardinal)** 在项目的初期作为了功能测试的主要实验对象，然后就拼凑出了 **Godinal** 这么个名字（雾
+> >
+> > 说不定以后哪天，这个项目真的可以成为一个名字大概叫 Godinal 的基于 Godot 的专业级 DAW 的起点（
 
 ## 📜 许可证
 
