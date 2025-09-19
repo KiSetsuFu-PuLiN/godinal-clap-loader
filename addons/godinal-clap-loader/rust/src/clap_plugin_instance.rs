@@ -9,6 +9,8 @@ use clack_extensions::{
     gui::HostGuiImpl,
     log::{HostLogImpl, LogSeverity},
 };
+#[allow(unused)]
+use godot::global::MidiMessage;
 use godot::{
     classes::{
         DisplayServer, InputEventMidi, Window, display_server::WindowMode, node::InternalMode,
@@ -230,6 +232,11 @@ impl ClapPluginInstance {
     }
 
     /// 向插件发送midi事件。
+    ///
+    /// 目前支持的[`MidiMessage`]：
+    /// - [`MidiMessage::NOTE_ON`]
+    /// - [`MidiMessage::NOTE_OFF`]
+    /// - [`MidiMessage::CONTROL_CHANGE`]
     #[func]
     fn send_midi(&self, midi: Array<Gd<InputEventMidi>>) {
         let events = midi.iter_shared().map(|midi| midi_to_event(midi)).collect();
