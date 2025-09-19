@@ -13,3 +13,5 @@ use godot::init::{ExtensionLibrary, gdextension};
 struct GodinalClapLoader;
 #[gdextension]
 unsafe impl ExtensionLibrary for GodinalClapLoader {}
+
+// todo: 当前若插件GUI上有较多内容，则触发GUI刷新时会导致Godot线程阻塞。尝试将其改为非阻塞式。

@@ -1,84 +1,151 @@
 [gd_scene load_steps=4 format=3 uid="uid://hhoytorinc8v"]
 
-[ext_resource type="AudioStream" uid="uid://0wsj3ltb8qsf" path="res://addons/godinal-clap-loader/V.A. - 一级警报BGM.mp3" id="1_55en3"]
+[ext_resource type="AudioStream" uid="uid://0wsj3ltb8qsf" path="res://addons/godinal-clap-loader/一级警报.mp3" id="1_55en3"]
 
 [sub_resource type="GDScript" id="GDScript_tlfnp"]
-script/source = "extends FileDialog
+script/source = "extends FileDialog # 继承自 FileDialog 节点，用于选择 Clap 插件文件
 
+## 导出的变量，用于存储作为 Clap 插件输入音频源的 AudioStream 资源。
 @export var _music:AudioStream
+## 存储所有已加载的 Clap 插件实例的数组，限制数组元素类型为 ClapPluginInstance。
 var _clap_instances:Array[ClapPluginInstance] = []
 
+## 设置音频流输入
+# 将主音频流 (_music) 赋值给 Clap 插件的所有输入端口。
 func _setup_audio_stream_input(clap_instance: ClapPluginInstance):
+	# 遍历插件的所有输入音频端口访问对象
 	for input_audio_port_access in clap_instance.input_audio_port_accesses():
+		# 将预设的音乐流 (_music) 分配给插件的输入流
 		input_audio_port_access.stream = _music
 
+## 设置音频流输出
+# 为 Clap 插件的每个输出端口创建一个 AudioStreamPlayer 并开始播放。
 func _setup_audio_stream_output(clap_instance: ClapPluginInstance):
+	# 遍历插件的所有输出音频端口访问对象
 	for clap_output_audio_port_access in clap_instance.output_audio_port_accesses():
+		# 创建一个新的 AudioStreamPlayer 节点来播放插件输出
 		var audio_stream_player := AudioStreamPlayer.new()
+		# 将播放器添加到场景树中
 		add_child(audio_stream_player)
+		# 将插件的输出端口作为音频流源
 		audio_stream_player.stream = clap_output_audio_port_access
+		# 立即开始播放
 		audio_stream_player.play()
 
+## 统一设置音频流
+# 封装函数，同时调用输入和输出音频流的设置。
 func _setup_audio_stream(clap_instance: ClapPluginInstance):
 	_setup_audio_stream_input(clap_instance)
 	_setup_audio_stream_output(clap_instance)
 
+## 加载插件状态
+# 从 FileAccess 对象中读取数据，并将其作为插件的状态。
 func _load_state(clap_instance: ClapPluginInstance, state_file:FileAccess):
+	# 读取文件的全部内容作为一个 Buffer，并赋值给插件的 state 属性
 	clap_instance.state = state_file.get_buffer(state_file.get_length())
 
+## 保存插件状态
+# 将插件的当前状态写入到 FileAccess 对象中并关闭。
 func _save_state(clap_instance: ClapPluginInstance, state_file:FileAccess):
+	# 将文件大小重置为 0，清空旧内容
 	state_file.resize(0)
+	# 将插件的当前状态 (Buffer) 写入文件
 	state_file.store_buffer(clap_instance.state)
+	# 关闭文件
 	state_file.close()
 	print(\"Plugin State Saved: \", state_file.get_path_absolute())
 
+## 设置插件状态的加载与延迟保存
+# 加载现有状态文件，并在延迟后保存当前状态。
 func _setup_state(clap_instance: ClapPluginInstance, state_save_path:String, save_delay:float):
+		# 检查状态文件是否存在
 		var is_state_file_exists := FileAccess.file_exists(state_save_path)
-		var file := FileAccess.open(state_save_path, FileAccess.READ_WRITE if is_state_file_exists else FileAccess.WRITE_READ)
-		_load_state(clap_instance, file)
+		# 打开文件：如果文件存在则以读写模式打开并加载状态，否则以写入/读模式创建新文件
+		var file:FileAccess
+		if is_state_file_exists:
+			file = FileAccess.open(state_save_path, FileAccess.READ_WRITE)
+			_load_state(clap_instance, file)
+		else:
+			file = FileAccess.open(state_save_path, FileAccess.WRITE_READ)
+		# 立即加载文件中的状态数据
+		
+		# 创建一个定时器，等待指定的延迟时间
 		await get_tree().create_timer(save_delay).timeout
+		# 延迟时间结束后，保存插件的当前状态到文件
 		_save_state(clap_instance, file)
 
+## 内部状态变量，用于跟踪 MIDI 音符是高音还是低音（模拟开关）。
 var _is_midi_note_high := false
+## 周期性处理 MIDI 音符信息
+# 根据物理帧周期性地发送高/低两个音符的 MIDI 开/关消息，模拟一个简单的琶音。
 func _process_midi_note(clap_instance: ClapPluginInstance):
-	var physics_frames := Engine.get_physics_frames()
+	var physics_frames := Engine.get_physics_frames() # 获取当前的物理帧数
+	# 根据物理帧数奇偶性（通过取模运算）判断当前是否为“高”音状态
 	var is_high := physics_frames / ProjectSettings.get_setting(\"physics/common/physics_ticks_per_second\") % 2 as bool
+	# 如果当前状态与上一次状态相同，则不发送新的 MIDI 消息，直接返回
 	if _is_midi_note_high == is_high:
 		return
-	_is_midi_note_high = is_high
+	_is_midi_note_high = is_high # 更新状态
+	
+	# --- 高音 MIDI 消息设置 ---
 	var high_note_midi := InputEventMIDI.new()
+	# 如果当前是“高”状态，则发送 Note On，否则发送 Note Off
 	high_note_midi.message = MIDI_MESSAGE_NOTE_ON if is_high else MIDI_MESSAGE_NOTE_OFF
-	high_note_midi.pitch = 72
-	high_note_midi.velocity = 127
+	high_note_midi.pitch = 72 # MIDI 音高 C6
+	high_note_midi.velocity = 127 # 最大力度
+	
+	# --- 低音 MIDI 消息设置 ---
 	var low_note_midi := InputEventMIDI.new()
+	# 如果当前是“高”状态，则发送低音 Note Off，否则发送 Note On (与高音状态相反)
 	low_note_midi.message = MIDI_MESSAGE_NOTE_OFF if is_high else MIDI_MESSAGE_NOTE_ON
-	low_note_midi.pitch = 60
+	low_note_midi.pitch = 60 # MIDI 音高 C5
 	low_note_midi.velocity = 127
+	
+	# 将两条 MIDI 消息打包成数组发送给插件
 	clap_instance.send_midi([high_note_midi, low_note_midi])
 
+## 周期性处理 MIDI 控制参数
+# 根据处理帧数，周期性地发送一个正弦波变化的 MIDI 控制变化信息，模拟 LFO 效果。
 func _process_midi_param(clap_instance: ClapPluginInstance):
-	var process_frames := Engine.get_process_frames()
+	var process_frames := Engine.get_process_frames() # 获取当前的处理帧数
+	# 使用 sin 函数生成一个 -1 到 1 之间的周期性值
 	var value := sin(process_frames/10.0)
+	
 	var pamam_midi := InputEventMIDI.new()
-	pamam_midi.message = MIDI_MESSAGE_CONTROL_CHANGE
-	pamam_midi.controller_number = 0
+	pamam_midi.message = MIDI_MESSAGE_CONTROL_CHANGE # 设置 MIDI 消息类型为控制变化
+	pamam_midi.controller_number = 0 # 控制器编号 0 (通常用于调制轮 Modulation Wheel)
+	# 将 -1 到 1 的值映射到 MIDI 控制器的 0 到 127 范围
 	pamam_midi.controller_value = (value + 1) * 128/2
-	clap_instance.send_midi([pamam_midi])
+	
+	clap_instance.send_midi([pamam_midi]) # 将 MIDI 消息发送给插件
 
+## 统一处理 MIDI
+# 封装函数，同时调用音符和参数的 MIDI 处理。
 func _process_midi(clap_instance: ClapPluginInstance):
 	_process_midi_note(clap_instance)
 	_process_midi_param(clap_instance)
 
+## 节点就绪
+# 节点初始化时调用，显示文件选择对话框。
 func _ready() -> void:
 	show()
 
+## 文件选择回调
+# 当用户在文件对话框中选择了文件后触发（用于加载 Clap 插件）。
 func _on_files_selected(paths):
+	# 遍历通过选定文件路径创建的所有 ClapPluginInstance 
 	for clap_instance in ClapPluginInstance.new_from_clap_files(paths, AudioServer.get_mix_rate(), 0.1):
+		# 将新实例添加到场景树中
 		add_child(clap_instance)
+		# 将新实例添加到内部数组进行管理
 		_clap_instances.append(clap_instance)
+		# 设置插件的音频输入和输出
 		_setup_audio_stream(clap_instance)
+		# 设置插件的状态加载，并在延迟12秒之后保存状态
 		_setup_state(clap_instance, \"user://state.bin\", 12)
 
+## 每帧处理
+# 每一帧调用，用于向所有加载的插件发送 MIDI 控制信息。
 func _process(delta):
 	for clap_instance in _clap_instances:
 		_process_midi(clap_instance)
