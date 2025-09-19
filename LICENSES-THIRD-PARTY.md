@@ -10,6 +10,7 @@ The **gdext** library used by this project is governed by the MPL-2.0 license. A
 
 ### Full Text of the MPL-2.0 License
 
+```
 Mozilla Public License Version 2.0
 ==================================
 
@@ -383,3 +384,4 @@ Exhibit B - "Incompatible With Secondary Licenses" Notice
 
   This Source Code Form is "Incompatible With Secondary Licenses", as
   defined by the Mozilla Public License, v. 2.0.
+```
