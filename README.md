@@ -1,5 +1,7 @@
 # ⚡ Godinal CLAP Loader
 
+[English](README_EN.md) | 简体中文
+
 ## 简介
 
 **Godinal CLAP Loader** 是为 **Godot 引擎**量身打造的音频扩展，旨在为游戏和音频应用的开发引入 **[CLAP](https://github.com/free-audio/clap)** 插件格式的强大音频处理能力，将现代音频插件的**高性能和灵活性**带入 Godot 生态系统，让开发者能够在游戏内直接使用各种强大的 **CLAP 效果器和合成器**。
