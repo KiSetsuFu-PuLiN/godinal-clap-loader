@@ -21,7 +21,8 @@
 
 💡 如果文字不够直观，还可以观看我录制的[使用教程](https://example.com)！
 
-![Clap插件结构抽象](addons/godinal-clap-loader/Clap插件结构.drawio.svg)
+![](addons/godinal-clap-loader/Clap插件结构.drawio.svg)
+*图：Clap插件结构抽象*
 
 ## 🛠️ 项目状态与开发计划
 
@@ -38,7 +39,21 @@
 以下是当前需要完善的几个主要方面：
 
 1.  **代码清理：** 工程中的 `todo` 字段需要完善和整理。
-2.  **跨平台支持：** 需要针对 Windows, macOS, Linux 和 Android（大概可以吧？） 等操作系统及各种硬件架构进行编译（位于 [target](addons/godinal-clap-loader/rust/target) 文件夹），并进行更全面的测试和优化。
+2.  **跨平台支持：** 需要针对 Windows, macOS, Linux 和 Android（大概可以吧？） 等操作系统及各种硬件架构编译二进制库。
+   -  编译后的文件将位于项目内的 [target](addons/godinal-clap-loader/rust/target) 文件夹。
+   -  这些版本需要更全面的测试和性能优化。
+
+## 🔨 编译指南
+
+如果 [target](addons/godinal-clap-loader/rust/target) 文件夹中没有您需要的目标平台二进制库，您需要自行编译：
+
+1.  [安装 rust](https://www.rust-lang.org/learn/get-started)
+2.  进入 [rust](addons/godinal-clap-loader/rust) 源代码目录
+3.  运行以下命令来进行编译：
+    * **调试版本：** `cargo build`
+    * **发布版本：** `cargo build -r`
+
+> 要是编译成功了可以帮忙传下二进制库，谢谢🙏！
 
 ## 许可证
 
