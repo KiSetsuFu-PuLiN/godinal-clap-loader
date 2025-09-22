@@ -15,7 +15,7 @@
 
 ## 🚀 快速上手
 
-1.  **克隆项目：** 将本项目根目录下的 [addons](addons) 文件夹克隆到您的项目中。您也可以通过 [Godot 资产库](https://example.com) 来进行这个操作。
+1.  **克隆项目：** 将本项目根目录下的 [addons](addons) 文件夹克隆到您的项目中。您也可以通过 [Godot 资产库](https://godotengine.org/asset-library/asset/4330) 来进行这个操作。
 2.  **运行示例：** 直接运行项目中的 [example.tscn](addons/godinal-clap-loader/example.tscn) 场景。Godot 会启动一个文件选择窗，用于选取一个本地的 CLAP 插件文件进行加载。
 3.  **查阅文档：** 该场景会自动向加载的插件发送测试音频和控制信号。查看该场景的 GDScript 来了解如何使用插件常用的类，它们都附带有详细的文档注释！
 
