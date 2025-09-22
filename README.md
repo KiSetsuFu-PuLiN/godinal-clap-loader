@@ -22,7 +22,9 @@
 💡 如果文字不够直观，还可以观看我录制的[使用教程](https://www.bilibili.com/video/BV1KsnczmERv/)！
 
 <p align="center">
-  <img width="800" height="450" alt="使用教程" src="https://github.com/user-attachments/assets/46ae05ea-4536-4004-a84e-57b92550b502" />
+    <a href="https://www.bilibili.com/video/BV1KsnczmERv/">
+        <img width="800" height="450" alt="使用教程" src="https://github.com/user-attachments/assets/46ae05ea-4536-4004-a84e-57b92550b502" />
+    </a>
 </p>
 
 ## 🛠️ 项目状态与开发计划
