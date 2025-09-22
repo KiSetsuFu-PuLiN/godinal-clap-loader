@@ -15,14 +15,17 @@ English | [简体中文](README.md)
 
 ## 🚀 Quick Start
 
-1. **Clone the Project:** Clone the [addons](addons) folder from this project's root directory into your own project. You can also do this through the [Godot Asset Library](https://example.com).
+1. **Clone the Project:** Clone the [addons](addons) folder from this project's root directory into your own project. You can also do this through the [Godot Asset Library](https://godotengine.org/asset-library/asset/4330).
 2. **Run the Example:** Directly run the [example.tscn](addons/godinal-clap-loader/example.tscn) scene within the project. Godot will launch a file selector window for you to choose a local CLAP plugin file to load.
 3. **Consult the Documentation:** The scene will automatically send test audio and control signals to the loaded plugin. Check the scene's GDScript to learn how to use the commonly utilized plugin classes, which all come with detailed documentation comments!
 
-💡 If text isn't intuitive enough, you can also watch my recorded [Usage Tutorial](https://example.com)!
+💡 If text isn't intuitive enough, you can also watch my recorded [Usage Tutorial](https://www.bilibili.com/video/BV1KsnczmERv/)!
 
-![](addons/godinal-clap-loader/Clap插件结构.drawio.svg)
-*Figure: CLAP Plugin Structure Abstraction*
+<p align="center">
+    <a href="https://www.bilibili.com/video/BV1KsnczmERv/">
+        <img width="800" height="450" alt="Usage Tutorial" src="https://github.com/user-attachments/assets/46ae05ea-4536-4004-a84e-57b92550b502" />
+    </a>
+</p>
 
 ## 🛠️ Project Status and Development Plan
 
