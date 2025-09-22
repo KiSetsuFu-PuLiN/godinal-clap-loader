@@ -19,10 +19,11 @@
 2.  **运行示例：** 直接运行项目中的 [example.tscn](addons/godinal-clap-loader/example.tscn) 场景。Godot 会启动一个文件选择窗，用于选取一个本地的 CLAP 插件文件进行加载。
 3.  **查阅文档：** 该场景会自动向加载的插件发送测试音频和控制信号。查看该场景的 GDScript 来了解如何使用插件常用的类，它们都附带有详细的文档注释！
 
-💡 如果文字不够直观，还可以观看我录制的[使用教程](https://example.com)！
+💡 如果文字不够直观，还可以观看我录制的[使用教程](https://www.bilibili.com/video/BV1KsnczmERv/)！
 
-![](addons/godinal-clap-loader/Clap插件结构.drawio.svg)
-*图：Clap插件结构抽象*
+<p align="center">
+  <img width="800" height="450" alt="使用教程" src="https://github.com/user-attachments/assets/46ae05ea-4536-4004-a84e-57b92550b502" />
+</p>
 
 ## 🛠️ 项目状态与开发计划
 
